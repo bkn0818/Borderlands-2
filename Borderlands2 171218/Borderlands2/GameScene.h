@@ -2,6 +2,8 @@
 class SceneNode;
 struct Bone;
 class Player;
+class EnemyManager;
+
 using namespace std;
 
 class GameScene : public SceneNode
@@ -21,6 +23,7 @@ private:
 	LPD3DXFRAME		camBone;
 	D3DXVECTOR3*	v;
 	Player*			player;
+	EnemyManager*	em;
 
 	vector<SkinnedMesh*> smList;
 
