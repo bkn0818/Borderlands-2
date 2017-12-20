@@ -2,6 +2,8 @@
 #include "Bullymong.h"
 #include "Boss.h"
 
+class iMap;
+
 class EnemyManager
 {
 private:
@@ -12,7 +14,7 @@ public:
 	~EnemyManager();
 
 	HRESULT Init();
-	void Update(D3DXVECTOR3* playerPosition);
+	void Update(iMap* obj, D3DXVECTOR3 playerPosition);	
 	void Render();
 	void Release();
 

@@ -1,5 +1,7 @@
 #pragma once
-#include "SkinnedMesh.h"
+
+class iMap;
+class SkinnedMesh;
 
 enum tagEnemyState
 {
@@ -38,9 +40,6 @@ protected:
 	int							hp;
 
 	// 위치 선형 보간====================================
-	D3DXMATRIXA16				worldMT;
-	std::vector<D3DXVECTOR3>	posList;			// 이동할 위치들
-	D3DXVECTOR3					prevPos;
 	D3DXVECTOR3					targetPos;			// 최종 위치
 	float						moveInterval;		// 이동 간격
 	float						passedActionTime;
@@ -58,7 +57,7 @@ public:
 	~Enemy() {}
 
 	virtual HRESULT Init(D3DXVECTOR3 position) = 0;
-	virtual void Update(D3DXVECTOR3 position) = 0;
+	virtual void Update(iMap* obj, D3DXVECTOR3 playerPosition) = 0;
 	virtual void Render() = 0;
 	virtual void Release() = 0;
 

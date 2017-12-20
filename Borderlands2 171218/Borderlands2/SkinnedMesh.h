@@ -34,6 +34,22 @@ public:
 		return &m_stBoundingSphere;
 	}
 
+	inline void SetMoving(bool moving)
+	{
+		isMoving = moving;
+	}
+
+	// 지영 추가: skinnedMesh회전용========== 
+	inline void RotateY(float angle)
+	{
+		angleY = angle;
+	}
+	inline void RotateX(float angle)
+	{
+		angleX = angle;
+	}
+	// ======================================
+
 private:
 	SkinnedMesh ();	
 
@@ -60,14 +76,10 @@ private:
 	D3DXVECTOR3					m_vPosition;
 	float						blendTime = 0.4f;
 	float						passedBlendTime = 0.0f;
+
+	// 지영 추가: skinnedMesh들이 플레이어 sM과 함께 회전하지 않게끔 
+	bool						isMoving;
+	float						angleX;
+	float						angleY;
+	// =============================================================
 };
-
-
-
-
-
-
-
-
-
-

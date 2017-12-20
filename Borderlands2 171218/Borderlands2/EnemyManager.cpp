@@ -13,15 +13,16 @@ EnemyManager::~EnemyManager()
 HRESULT EnemyManager::Init()
 {
 	bm = new Bullymong;
-	bm->Init(D3DXVECTOR3(50.0f, 0.0f, 0.0f));
+	bm->Init(D3DXVECTOR3(40.0f, 0.0f, 20.0f));
+	//x : 뒤로 앞으로
+	//z : 옆으로 
 
 	return S_OK;
 }
 
-void EnemyManager::Update(D3DXVECTOR3* playerPosition)
+void EnemyManager::Update(iMap* obj, D3DXVECTOR3 playerPosition)
 {
-	D3DXVECTOR3 playerPos = *playerPosition;
-	bm->Update(playerPos);
+	bm->Update(obj, playerPosition);
 }
 
 void EnemyManager::Render()

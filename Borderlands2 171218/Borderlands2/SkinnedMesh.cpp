@@ -6,19 +6,20 @@
 SkinnedMesh::SkinnedMesh()
 	: root(nullptr)
 	, animationController(nullptr)
-	//, blendTime (0.3f)
-	//, passedBlendTime(0.0f)
+	, blendTime (0.3f)
+	, passedBlendTime(0.0f)
 	, m_dwWorkingPaletteSize(0)
 	, m_pmWorkingPalette(NULL)
 	, m_pEffect(NULL)
 	, m_vPosition(0, 0, 0)
-
 {
 }
 
 SkinnedMesh::SkinnedMesh(char* szFolder, char* szFilename)
 	: root(NULL)
 	, animationController(NULL)
+	, blendTime(0.3f)
+	, passedBlendTime(0.0f)
 	, m_dwWorkingPaletteSize(0)
 	, m_pmWorkingPalette(NULL)
 	, m_pEffect(NULL)
@@ -163,14 +164,38 @@ void SkinnedMesh::SetupBoneMatrixPtrs(LPD3DXFRAME frame)
 
 void SkinnedMesh::Moving()
 {
+	// 지영 수정==============================================
+	// 플레이어 외의 다른 클래스에서도 rotate가 자유롭게끔 수정 
+	float tempAngleX, tempAngleY;
 	D3DXMATRIX rotationX, rotationY, rotation, translation;
-	D3DXMatrixIdentity(&rotationX);
-	D3DXMatrixRotationZ(&rotationX, -g_pCamera->GetAngleX());
-	D3DXMatrixRotationY(&rotationY, g_pCamera->GetAngleY() - 1.5f);
-	rotation = rotationX * rotationY;
-	D3DXMatrixTranslation(&translation, m_vPosition.x, m_vPosition.y, m_vPosition.z);
 	
-	worldMat = rotationX * rotationY * translation;
+	if (isMoving)
+	{
+		tempAngleX = -g_pCamera->GetAngleX();
+		tempAngleY = g_pCamera->GetAngleY() - 1.5f;
+	}
+	else
+	{
+		tempAngleX = angleX;
+		tempAngleY = angleY;
+	}
+	
+	D3DXMatrixIdentity(&rotationX);
+	D3DXMatrixRotationZ(&rotationX, tempAngleX);
+	D3DXMatrixRotationY(&rotationY, tempAngleY);
+	D3DXMatrixTranslation(&translation, m_vPosition.x, m_vPosition.y, m_vPosition.z);
+
+	if (isMoving)	// 플레이어 
+	{
+		rotation = rotationX * rotationY;
+		worldMat = rotationX * rotationY * translation;
+	}
+	else			// 그 외 클래스 
+	{	//SRT
+		worldMat = rotationY * translation;
+	}
+	// =======================================================
+
 	D3DDEVICE->SetTransform(D3DTS_WORLD, &worldMat);
 
 	LPD3DXFONT font = g_pFontManager->GetFont(g_pFontManager->QUEST);
@@ -182,10 +207,35 @@ void SkinnedMesh::Moving()
 
 void SkinnedMesh::UpdateAndRender()
 {
+	float deltaTime = g_pTimeManager->GetDeltaTime();
+
 	if (animationController)
 	{
-		animationController->AdvanceTime(g_pTimeManager->GetDeltaTime(), NULL);
+		animationController->AdvanceTime(deltaTime, NULL);
 	}
+//	if (animationController)
+//	{
+//		animationController->AdvanceTime(g_pTimeManager->GetDeltaTime(), NULL);
+//	}
+
+	// 지영 추가=============================
+	// 애니메이션 블렌딩 추가 
+	if (passedBlendTime <= blendTime) {
+		passedBlendTime += deltaTime;
+
+		if (passedBlendTime < blendTime) {
+			float weight = passedBlendTime / blendTime;
+			animationController->SetTrackWeight(0, weight);
+			animationController->SetTrackWeight(1, 1.0f - weight);
+		}
+		else
+		{
+			animationController->SetTrackWeight(0, 1);
+			animationController->SetTrackWeight(1, 0);
+			animationController->SetTrackEnable(1, false);
+		}
+	}
+	//=======================================
 
 	if (root)
 	{
@@ -288,11 +338,33 @@ void SkinnedMesh::SetAnimationIndex(int index)
 {
 	if (!animationController)
 		return;
-	LPD3DXANIMATIONSET pAnimSet = NULL;
-	animationController->GetAnimationSet(index, &pAnimSet);
-	animationController->SetTrackAnimationSet(0, pAnimSet);
-	SAFE_RELEASE(pAnimSet);
+//	LPD3DXANIMATIONSET pAnimSet = NULL;
+//	animationController->GetAnimationSet(index, &pAnimSet);
+//	animationController->SetTrackAnimationSet(0, pAnimSet);
+//	SAFE_RELEASE(pAnimSet);
 
+	// 지영 추가=============================
+	// 애니메이션 블렌딩 추가.
+	LPD3DXANIMATIONSET pNextAniSet = nullptr;	// 바꾸는 animset
+	animationController->GetAnimationSet(index, &pNextAniSet);
+
+	LPD3DXANIMATIONSET pPrevAniSet = nullptr;	// 재생되고 있던 animset 
+	animationController->GetTrackAnimationSet(0, &pPrevAniSet);
+	animationController->SetTrackAnimationSet(1, pPrevAniSet);
+
+	D3DXTRACK_DESC trackDesc;
+	animationController->GetTrackDesc(0, &trackDesc);
+	animationController->SetTrackDesc(1, &trackDesc);
+
+	animationController->SetTrackWeight(0, 0.0f);
+	animationController->SetTrackWeight(1, 1.0f);
+	SAFE_RELEASE(pPrevAniSet);
+
+	passedBlendTime = 0.0f;
+
+	animationController->SetTrackAnimationSet(0, pNextAniSet);
+	SAFE_RELEASE(pNextAniSet);
+	//=======================================
 }
 
 void SkinnedMesh::Destroy()

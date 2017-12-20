@@ -28,6 +28,8 @@ void Player::Init()
 	_player.skinnedMesh = new SkinnedMesh("./sjXFile/", "test_hand.X");
 	_player.skinnedMesh->SetPosition(D3DXVECTOR3(0, 0, 0));
 
+	_player.skinnedMesh->SetMoving(true);
+
 	test = new SkinnedMesh("./sjXFile/", "testgun.X");
 	//test->SetAnimationIndex(0);
 	//test->SetPosition(D3DXVECTOR3(0, 0, 0));
@@ -81,4 +83,9 @@ void Player::WeaponCtrl()
 void Player::MainProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 
+}
+
+D3DXVECTOR3 Player::GetPosition()
+{
+	return _player.skinnedMesh->GetPosition();
 }

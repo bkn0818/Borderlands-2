@@ -66,6 +66,10 @@ public:
 	void WeaponCtrl();
 	void MainProc(HWND, UINT, WPARAM, LPARAM);
 
+	// 지영 추가============ 
+	D3DXVECTOR3 GetPosition();
+	// ===================== 
+
 	Player();
 	~Player();
 };

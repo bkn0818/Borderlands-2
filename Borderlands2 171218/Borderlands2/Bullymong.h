@@ -23,7 +23,7 @@ public:
 	~Bullymong();
 
 	HRESULT Init(D3DXVECTOR3 position);
-	void Update(D3DXVECTOR3 position);
+	void Update(iMap* obj, D3DXVECTOR3 playerPosition);
 	void Render();
 	void Release();
 
@@ -32,7 +32,7 @@ public:
 	void SetState(int curAnim);
 
 	void Assaulted(POINT mouse);
-	void Move(D3DXVECTOR3 playerPos);
+	void Move(D3DXVECTOR3 playerPosition);
 
 	void ShowRange();
 

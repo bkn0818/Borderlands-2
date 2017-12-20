@@ -16,6 +16,9 @@ HRESULT GameScene::Init(void)
 	player = new Player;
 	player->Init();
 
+	em = new EnemyManager;
+	em->Init();
+
 	environment = new Environment;
 	environment->SetEnvironment();
 
@@ -35,11 +38,15 @@ void GameScene::Update(void)
 	g_pCamera->ProcessMouse();
 	
 	player->Update(environment->GetHeightMap());
+
+	em->Update(environment->GetHeightMap(), player->GetPosition());
+	// ¸Ê, ÇÃ·¹ÀÌ¾î ÁÂÇ¥ 
 }
 
 void GameScene::Render(void)
 {
 	player->Render();
+	em->Render();
 	environment->Render();
 }
 

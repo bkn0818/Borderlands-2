@@ -21,6 +21,8 @@ public: \
 #define BLUE	D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f)
 #define WHITE	D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f)
 
+#define EPSILON 0.0001f
+
 #define GETSET(varType, varName, funName)\
 protected: varType varName;\
 public: inline varType Get##funName(void) const { return varName; }\

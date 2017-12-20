@@ -14,7 +14,8 @@ HRESULT Bullymong::Init(D3DXVECTOR3 position)
 {
 	pos = position;
 
-	sm = g_pSkinnedMeshManager->GetSkinnedMesh("zealot", "bullymong.X");
+	sm = g_pSkinnedMeshManager->GetSkinnedMesh("./XFile/", "bullymong.X");
+	sm->SetMoving(false);
 	sm->SetPosition(pos);
 	curAnimSet = BMONG_WALK;
 	sm->SetAnimationIndex(curAnimSet);
@@ -23,7 +24,7 @@ HRESULT Bullymong::Init(D3DXVECTOR3 position)
 	hp = 586;
 
 	// 충돌처리용 bounding Sphere들===========================
-	SetBoundingSphere(range[RANGE_HEAD], 0.5f, 255, 0, 0);
+	SetBoundingSphere(range[RANGE_HEAD], 2.0f, 255, 0, 0);
 	SetBoundingSphere(range[RANGE_ATTACK], 1.0f, 255, 0, 0);
 	SetBoundingSphere(range[RANGE_RECOG], 8.0f, 0, 255, 0);
 	SetBoundingSphere(range[RANGE_ASSAULT], 0.4f, 0, 0, 255);
@@ -34,23 +35,30 @@ HRESULT Bullymong::Init(D3DXVECTOR3 position)
 	passedActionTime = 0.0f;
 	moveInterval = 0.5f;
 
-	//	animFrame[SLEEP_END] = animFrame[SLEEP_ING] = 31;
-	//	animFrame[SLEEP_START] = animFrame[IDLE] = 101;
+	sm->RotateY(-30);
 
 	return S_OK;
 }
 
-void Bullymong::Update(D3DXVECTOR3 position)
+void Bullymong::Update(iMap* obj, D3DXVECTOR3 playerPosition)
 {
-	Collision(position);
-//	Move();
+	Collision(playerPosition);
+//	Move(D3DXVECTOR3(0,0,0));
 
+	D3DXVECTOR3 temp = pos;
+
+	if (obj && obj->GetHeight(temp.x, temp.y, temp.z))
+	{
+		pos = temp;
+	}
+	else temp = pos;
+
+	sm->SetPosition(pos);
 
 }
 
 void Bullymong::Render()
 {
-	D3DDEVICE->SetTransform(D3DTS_WORLD, &worldMT);
 	sm->UpdateAndRender();
 
 	// bounding Sphere========================================
@@ -87,7 +95,7 @@ void Bullymong::Assaulted(POINT mouse)
 
 }
 
-void Bullymong::Move(D3DXVECTOR3 playerPos)
+void Bullymong::Move(D3DXVECTOR3 playerPosition)
 {
 	//	D3DXMATRIXA16				worldMT;
 	//	std::vector<D3DXVECTOR3>	posList;			// 이동할 위치들
@@ -102,12 +110,11 @@ void Bullymong::Move(D3DXVECTOR3 playerPos)
 	//	D3DXMATRIXA16 matR;
 	//	D3DXMatrixRotationY(&matR, D3DX_PI / 3.0f);
 
-	//	D3DXVECTOR3 tempPos = startPos = pos;````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+	//	D3DXVECTOR3 tempPos = startPos = pos;
 	//	D3DXVec3TransformCoord(&tempPos, &tempPos, &matR);
-	prevPos = pos;
 
 	if (haveTarget)
-		targetPos = D3DXVECTOR3(playerPos.x, playerPos.y, playerPos.z - 1.0f);	// 플레이어 코 앞에 
+		targetPos = D3DXVECTOR3(playerPosition.x, playerPosition.y, playerPosition.z - 1.0f);	// 플레이어 코 앞에 
 	else
 		targetPos = D3DXVECTOR3(pos.x + rand() % 2, pos.y, pos.z + rand() % 2);	// 랜덤 위치 
 
@@ -117,13 +124,19 @@ void Bullymong::Move(D3DXVECTOR3 playerPos)
 	{
 		float t = passedActionTime / moveInterval;	// 텀 
 		D3DXVECTOR3 p;
-		D3DXVec3Lerp(&p, &prevPos, &targetPos, t); // startPosition에서 targetPosition으로 선형보간 
-		posList.push_back(p);
+		D3DXVec3Lerp(&p, &pos, &targetPos, t); // 현재position에서 targetPosition으로 선형보간 
+		
+		D3DXVECTOR3 dis = targetPos - pos;
+		
+		if (D3DXVec3Length(&dis) <= EPSILON)	//이동한 지점과 목표 지점 사이가 EPSILON이면 도착
+		{
+		}
+		else
+			pos = p;
 	}
 	else
 	{
 	}
-
 
 	if (rand() % 2 == 0)
 		curAnimSet = BMONG_WALK;
@@ -136,12 +149,13 @@ void Bullymong::Move(D3DXVECTOR3 playerPos)
 
 void Bullymong::Collision(D3DXVECTOR3 position)
 {
-	haveTarget = false;
 	// player sphere의 radius 받아올 필요 있음. 
-	if (CollisionSphere(position, 1.0f, pos, 5.0f))
+	if (CollisionSphere(position, range[RANGE_RECOG].sphereInfo.fRadius, pos, 5.0f))
 	{
 		haveTarget = true;
 	}
+	else 
+		haveTarget = false;
 
 	SetState(curAnimSet);
 }
@@ -150,8 +164,8 @@ void Bullymong::SetState(int curAnim)
 {
 	if (haveTarget)
 	{
-		state = STATE_ATTACK;
-		curAnimSet = BMONG_THROWROCK;
+		state = STATE_IDLE;
+		curAnimSet = BMONG_IDLE;
 	}
 	else
 	{

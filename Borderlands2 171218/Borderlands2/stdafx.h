@@ -68,6 +68,7 @@ extern POINT		g_ptMouse;
 #include "HeightMap.h"
 #include "CharacterCtrl.h"
 #include "Player.h"
+#include "EnemyManager.h"
 
 #include "CubeCtrl.h"
 #include "CameraCtrl.h"
