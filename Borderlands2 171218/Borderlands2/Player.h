@@ -68,6 +68,7 @@ public:
 
 	// 지영 추가============ 
 	D3DXVECTOR3 GetPosition();
+	SphereInfo* GetSphere();
 	// ===================== 
 
 	Player();

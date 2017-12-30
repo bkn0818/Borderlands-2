@@ -20,9 +20,9 @@ HRESULT EnemyManager::Init()
 	return S_OK;
 }
 
-void EnemyManager::Update(iMap* obj, D3DXVECTOR3 playerPosition)
+void EnemyManager::Update(iMap* obj, D3DXVECTOR3 playerPosition, SphereInfo* playerSphere)
 {
-	bm->Update(obj, playerPosition);
+	bm->Update(obj, playerPosition, playerSphere);
 }
 
 void EnemyManager::Render()

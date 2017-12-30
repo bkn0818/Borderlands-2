@@ -89,3 +89,8 @@ D3DXVECTOR3 Player::GetPosition()
 {
 	return _player.skinnedMesh->GetPosition();
 }
+
+SphereInfo* Player::GetSphere()
+{
+	return _player.skinnedMesh->GetBoundingSphere();
+}

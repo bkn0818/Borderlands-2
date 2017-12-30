@@ -39,7 +39,7 @@ void GameScene::Update(void)
 	
 	player->Update(environment->GetHeightMap());
 
-	em->Update(environment->GetHeightMap(), player->GetPosition());
+	em->Update(environment->GetHeightMap(), player->GetPosition(), player->GetSphere());
 	// ¸Ê, ÇÃ·¹ÀÌ¾î ÁÂÇ¥ 
 }
 
@@ -61,6 +61,8 @@ void GameScene::MainProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			
 			//player->SetAnimationIndex(++n);
 		}
+		case VK_ESCAPE:
+			exit(0);
 		break;
 	}
 }

@@ -1,4 +1,5 @@
 #pragma once
+#define HPMAX_BMONG 586
 
 class iMap;
 class SkinnedMesh;
@@ -38,6 +39,7 @@ protected:
 	int							curAnimSet;
 	int							state;
 	int							hp;
+	float						distance;			// 플레이어와의 간격
 
 	// 위치 선형 보간====================================
 	D3DXVECTOR3					targetPos;			// 최종 위치
@@ -45,8 +47,10 @@ protected:
 	float						passedActionTime;
 	// ==================================================
 
-	bool						haveTarget;			// 인식했다면 공격모드로 타겟 지정 
-	bool						showRange;
+	bool						isRecog;			// 인식했다면 공격 
+	bool						isMoveStart;		// 움직이기 시작했는가 
+
+	bool						showRange;			// boundingSphere 표시 여부 
 
 	void SetBoundingSphere(tagBoundingSphere& sphere, float radius, int r, int g, int b);
 	bool CollisionSphere(D3DXVECTOR3 spCenter1, float spRadius1, D3DXVECTOR3 spCenter2, float spRadius2);
@@ -57,7 +61,7 @@ public:
 	~Enemy() {}
 
 	virtual HRESULT Init(D3DXVECTOR3 position) = 0;
-	virtual void Update(iMap* obj, D3DXVECTOR3 playerPosition) = 0;
+	virtual void Update(iMap* obj, D3DXVECTOR3 playerPosition, SphereInfo* playerSphere) = 0;
 	virtual void Render() = 0;
 	virtual void Release() = 0;
 

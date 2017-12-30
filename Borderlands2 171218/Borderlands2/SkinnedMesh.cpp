@@ -188,7 +188,7 @@ void SkinnedMesh::Moving()
 	if (isMoving)	// 플레이어 
 	{
 		rotation = rotationX * rotationY;
-		worldMat = rotationX * rotationY * translation;
+		worldMat = rotation * translation;
 	}
 	else			// 그 외 클래스 
 	{	//SRT

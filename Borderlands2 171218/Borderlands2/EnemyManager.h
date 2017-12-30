@@ -14,7 +14,7 @@ public:
 	~EnemyManager();
 
 	HRESULT Init();
-	void Update(iMap* obj, D3DXVECTOR3 playerPosition);	
+	void Update(iMap* obj, D3DXVECTOR3 playerPosition, SphereInfo* playerSphere);	
 	void Render();
 	void Release();
 
