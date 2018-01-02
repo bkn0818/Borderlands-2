@@ -1,4 +1,0 @@
-﻿  GameScene.cpp
-c:\users\영털\documents\github\borderlands-2\borderlands2 171221\borderlands2\gamescene.cpp(28): warning C4316: 'UIManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-  Borderlands2.vcxproj -> C:\Users\영털\Documents\GitHub\Borderlands-2\Borderlands2 171221\Debug\Borderlands2.exe
-  Borderlands2.vcxproj -> C:\Users\영털\Documents\GitHub\Borderlands-2\Borderlands2 171221\Debug\Borderlands2.pdb (Partial PDB)

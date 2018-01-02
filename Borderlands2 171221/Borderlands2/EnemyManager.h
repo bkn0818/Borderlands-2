@@ -7,20 +7,21 @@ class iMap;
 class EnemyManager
 {
 private:
-	Bullymong* bm;
+	//	Bullymong*		bm[2];
+	Bullymong*		bm;
 
 public:
 	EnemyManager();
 	~EnemyManager();
 
 	HRESULT Init();
-	void Update(iMap* obj, D3DXVECTOR3 playerPosition, SphereInfo* playerSphere);	
+	void Update(iMap* imap, D3DXVECTOR3 posPlayer, SphereInfo* spherePlayer);
 	void Render();
 	void Release();
 
-	void Hit(POINT mouse);	// 발사했을 때의 마우스 좌표 전달 
-
-							// 테스트용
-	void SetAnim(int n);
+	void SetNewPosition();
+	bool CollisionEach(D3DXVECTOR3* posEnemy, float radiusEnemy);
+	void EnemyCollision();
+	void ObjectCollision();
 
 };
