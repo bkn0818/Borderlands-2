@@ -76,13 +76,13 @@ void Bullymong::Update(iMap* obj, D3DXVECTOR3 playerPosition, SphereInfo* player
 void Bullymong::Render()
 {
 	// 거리 테스트 
-	LPD3DXFONT font = g_pFontManager->GetFont(g_pFontManager->QUEST);
+	LPD3DXFONT font = g_pFontManager->GetFont(g_pFontManager->UI);
 	RECT rc = { 400, 0, 600, 50 };
 	char str[1024];
 	sprintf(str, "dis:%.3f, E(%.3f, %.3f, %3.f) P(%.3f, %.3f, %.3f) curAnim: %d", distance, pos.x, pos.y, pos.z, px, py, pz, curAnimSet);
 	font->DrawTextA(nullptr, str, strlen(str), &rc, DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(0, 255, 0));
 
-	LPD3DXFONT font2 = g_pFontManager->GetFont(g_pFontManager->QUEST);
+	LPD3DXFONT font2 = g_pFontManager->GetFont(g_pFontManager->UI);
 	RECT rc2 = { 400, 60, 600, 100};
 	char str2[1024];
 	sprintf(str2, "R(%.3f, %.3f, %.3f) R_TAR(%.3f, %.3f, %.3f) Angle: %.3f", rockObj.pos.x, rockObj.pos.y, rockObj.pos.z, rockObj.targetPos.x, rockObj.targetPos.y, rockObj.targetPos.z, rockObj.angle);

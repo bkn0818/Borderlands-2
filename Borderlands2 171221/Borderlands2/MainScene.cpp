@@ -21,7 +21,7 @@ HRESULT MainScene::Init(void)
 	background->SetTexture(texture);
 	background->SetSize(D3DXVECTOR2(rc.right, rc.bottom));
 	background->SetLocalPos(D3DXVECTOR3(0, 0, 0));
-	background->SetDebugRender(true);
+	//background->SetDebugRender(true);
 	D3DXCreateSprite(D3DDEVICE, &spriteBackground);
 
 	UIRoot = background;
@@ -45,7 +45,7 @@ void MainScene::Render(void)
 {
 	RECT rc;
 	GetClientRect(g_hWnd, &rc);
-	if (UIRoot) UIRoot->Render(spriteBackground, rc);
+	if (UIRoot) UIRoot->Render(spriteBackground, NULL);
 }
 
 void MainScene::MainProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)

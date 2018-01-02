@@ -111,7 +111,8 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 	wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_BORDERLANDS2));
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-	wcex.lpszMenuName = MAKEINTRESOURCEW(IDC_BORDERLANDS2);
+	//wcex.lpszMenuName = MAKEINTRESOURCEW(IDC_BORDERLANDS2);
+	wcex.lpszMenuName = NULL;
 	wcex.lpszClassName = szWindowClass;
 	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -133,7 +134,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	g_hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
 	HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-							  0, 0, WINSIZEX, WINSIZEY, nullptr, nullptr, hInstance, nullptr);
+							  0, 0, UIWINSIZEX, UIWINSIZEY, nullptr, nullptr, hInstance, nullptr);
 	
 	if (!hWnd)
 	{

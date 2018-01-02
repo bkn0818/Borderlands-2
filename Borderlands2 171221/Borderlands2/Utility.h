@@ -13,6 +13,9 @@ public: \
 #define WINSIZEX 1600
 #define WINSIZEY 1200
 
+#define UIWINSIZEX 1280
+#define UIWINSIZEY 768
+
 
 #define SAFE_RELEASE(p) if(p) {(p)->Release(); (p) = NULL;}
 #define SAFE_DELETE(p) if(p) {delete (p); (p) = NULL;}

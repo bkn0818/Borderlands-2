@@ -73,7 +73,7 @@ void Player::Render()
 	D3DDEVICE->SetTransform(D3DTS_WORLD, &bulletMat);
 	bulletTest->DrawSubset(0);
 
-	LPD3DXFONT font = g_pFontManager->GetFont(g_pFontManager->QUEST);
+	LPD3DXFONT font = g_pFontManager->GetFont(g_pFontManager->UI);
 	RECT rc = { 200, 850, 200, 200 };
 	char str[1024];
 	sprintf(str, "%d , %d", _player.Sp, _player.Hp);

@@ -1,13 +1,15 @@
 #pragma once
+#include "progressBar.h"
 
-//#define UIMNG UIManager::GetInstance()
-
-class UIManager : public iUIButtonDelegate
+class UIManager //: public iUIButtonDelegate
 {
-	//SINGLETON(UIManager)
 private:
 	LPD3DXSPRITE	sprite;
 	UIObject		uiObj;
+
+	progressBar*	emptyBar;
+	progressBar*	HPBar;
+	progressBar*	BulletBar;
 
 public:
 	UIManager();
@@ -17,8 +19,10 @@ public:
 	void Release();
 	void Update();
 	void Destroy();
-	void Render(RECT drawRect);
+	void Render();
 
-	void OnClick(UIButton* pSender);
+	//void OnClick(UIButton* pSender);
+	void OnClick(int n);
+	void OnAttacked(int n);
 };
 

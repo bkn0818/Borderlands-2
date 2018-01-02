@@ -1,28 +1,25 @@
 #include "stdafx.h"
 #include "UIObject.h"
 
-
 UIObject::UIObject()
 	: localPos(0, 0, 0)
 	, parent(nullptr)
 	, size(0, 0)
-	, isDebugRender(false)
 	, tag(0)
 {
-	D3DXMatrixIdentity(&worldMatrix);
+	D3DXMatrixIdentity(&worldMatrix);	
 }
 
 UIObject::~UIObject()
 {
-	Destroy();
+	Destroy();	
 }
 
 void UIObject::Update()
 {
-	UpdateWorldTM();
-	UpdateChildren();
+	UpdateWorldTM();	
+	UpdateChildren();	
 }
-
 void UIObject::UpdateWorldTM()
 {
 	worldMatrix._41 = localPos.x;
@@ -30,12 +27,12 @@ void UIObject::UpdateWorldTM()
 	worldMatrix._43 = localPos.z;
 
 	if (parent) {
+
 		worldMatrix._41 += parent->worldMatrix._41;
 		worldMatrix._42 += parent->worldMatrix._42;
 		worldMatrix._43 += parent->worldMatrix._43;
 	}
 }
-
 void UIObject::UpdateChildren()
 {
 	for each(auto it in childList) {
@@ -43,38 +40,35 @@ void UIObject::UpdateChildren()
 	}
 }
 
-void UIObject::Render(LPD3DXSPRITE sprite, RECT drawRect)
+void UIObject::Render(LPD3DXSPRITE sprite, const char * progressBarName)
 {
-	if (isDebugRender) {
-		float l = worldMatrix._41;
-		float t = worldMatrix._42;
-		float r = worldMatrix._41 + size.x;
-		float b = worldMatrix._42 + size.y;
+	float l = worldMatrix._41;
+	float t = worldMatrix._42;
+	float r = worldMatrix._41 + size.x;
+	float b = worldMatrix._42 + size.y;
 
-		D3DCOLOR c = D3DCOLOR_XRGB(255, 255, 255);
-		std::vector<VertexRHWC> vecVertex;
+	D3DCOLOR c = D3DCOLOR_XRGB(255, 255, 255);
+	std::vector<VertexRHWC> vecVertex;
 
-		vecVertex.reserve(8);
-		vecVertex.push_back(VertexRHWC(D3DXVECTOR4(l, t, 0, 1), c));
-		vecVertex.push_back(VertexRHWC(D3DXVECTOR4(r, t, 0, 1), c));
+	vecVertex.reserve(8);
+	vecVertex.push_back(VertexRHWC(D3DXVECTOR4(l, t, 0, 1), c));
+	vecVertex.push_back(VertexRHWC(D3DXVECTOR4(r, t, 0, 1), c));
 
-		vecVertex.push_back(VertexRHWC(D3DXVECTOR4(r, t, 0, 1), c));
-		vecVertex.push_back(VertexRHWC(D3DXVECTOR4(r, b, 0, 1), c));
+	vecVertex.push_back(VertexRHWC(D3DXVECTOR4(r, t, 0, 1), c));
+	vecVertex.push_back(VertexRHWC(D3DXVECTOR4(r, b, 0, 1), c));
 
-		vecVertex.push_back(VertexRHWC(D3DXVECTOR4(r, b, 0, 1), c));
-		vecVertex.push_back(VertexRHWC(D3DXVECTOR4(l, b, 0, 1), c));
+	vecVertex.push_back(VertexRHWC(D3DXVECTOR4(r, b, 0, 1), c));
+	vecVertex.push_back(VertexRHWC(D3DXVECTOR4(l, b, 0, 1), c));
 
-		vecVertex.push_back(VertexRHWC(D3DXVECTOR4(l, b, 0, 1), c));
-		vecVertex.push_back(VertexRHWC(D3DXVECTOR4(l, t, 0, 1), c));
+	vecVertex.push_back(VertexRHWC(D3DXVECTOR4(l, b, 0, 1), c));
+	vecVertex.push_back(VertexRHWC(D3DXVECTOR4(l, t, 0, 1), c));
 
-		D3DDEVICE->SetFVF(VertexRHWC::FVF);
-		D3DDEVICE->DrawPrimitiveUP(D3DPT_LINELIST, 4, &vecVertex[0], sizeof(VertexRHWC));
-	}
+	D3DDEVICE->SetFVF(VertexRHWC::FVF);
+	D3DDEVICE->DrawPrimitiveUP(D3DPT_LINELIST, 4, &vecVertex[0], sizeof(VertexRHWC));
 
 	for each(auto it in childList) {
-		it->Render(sprite, drawRect);
+		it->Render(sprite, progressBarName);
 	}
-
 }
 
 void UIObject::AddChild(UIObject * child)
@@ -104,8 +98,3 @@ UIObject * UIObject::GetChildByTag(int _tag)
 	return nullptr;
 
 }
-
-
-
-
-

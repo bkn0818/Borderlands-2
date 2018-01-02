@@ -10,10 +10,10 @@ UITextView::~UITextView()
 {
 }
 
-void UITextView::Render(LPD3DXSPRITE sprite, RECT drawRect)
+void UITextView::Render(LPD3DXSPRITE sprite, const char * progressBarName)
 {
 	RECT rc = { worldMatrix._41, worldMatrix._42, worldMatrix._41 + size.x, worldMatrix._42 + size.y };
 	font->DrawTextA(nullptr, text.c_str(), text.length(), &rc, textFormat, color);
 
-	UIObject::Render(sprite, drawRect);
+	UIObject::Render(sprite, progressBarName);
 }

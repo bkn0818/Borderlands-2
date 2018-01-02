@@ -19,7 +19,7 @@ public:
 
 	virtual void SetTexture(std::string normal, std::string mouseover, std::string selected);
 	virtual void Update() override;
-	virtual void Render(LPD3DXSPRITE sprite, RECT drawRect) override;
+	virtual void Render(LPD3DXSPRITE sprite, const char * progressBarName) override;
 
 
 	enum ButtonState

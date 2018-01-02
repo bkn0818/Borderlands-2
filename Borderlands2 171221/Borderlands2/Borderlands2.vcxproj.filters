@@ -34,9 +34,6 @@
     <Filter Include="소스 파일\Particle">
       <UniqueIdentifier>{b323f15c-f340-4ccf-98bc-cceae2409b64}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\UI">
-      <UniqueIdentifier>{59257a58-dc38-4d62-b3bc-054e036d5831}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\VideoDevice">
       <UniqueIdentifier>{c7faa331-7f8c-45be-a82b-d6dbc7cf25f8}</UniqueIdentifier>
     </Filter>
@@ -96,6 +93,9 @@
     </Filter>
     <Filter Include="소스 파일\Scene\LoadingScene">
       <UniqueIdentifier>{bf3c2a79-7ff8-4585-98fa-270fc6f6c3b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\3.YoungSeon\UI">
+      <UniqueIdentifier>{59257a58-dc38-4d62-b3bc-054e036d5831}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -159,9 +159,6 @@
     <ClInclude Include="TimeManager.h">
       <Filter>소스 파일\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="UIManager.h">
-      <Filter>소스 파일\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Environment.h">
       <Filter>소스 파일\Environment</Filter>
     </ClInclude>
@@ -172,16 +169,16 @@
       <Filter>소스 파일\Particle</Filter>
     </ClInclude>
     <ClInclude Include="UITextView.h">
-      <Filter>소스 파일\UI</Filter>
+      <Filter>소스 파일\3.YoungSeon\UI</Filter>
     </ClInclude>
     <ClInclude Include="UIObject.h">
-      <Filter>소스 파일\UI</Filter>
+      <Filter>소스 파일\3.YoungSeon\UI</Filter>
     </ClInclude>
     <ClInclude Include="UIImageView.h">
-      <Filter>소스 파일\UI</Filter>
+      <Filter>소스 파일\3.YoungSeon\UI</Filter>
     </ClInclude>
     <ClInclude Include="UIButton.h">
-      <Filter>소스 파일\UI</Filter>
+      <Filter>소스 파일\3.YoungSeon\UI</Filter>
     </ClInclude>
     <ClInclude Include="VideoDevice.h">
       <Filter>소스 파일\VideoDevice</Filter>
@@ -324,6 +321,12 @@
     <ClInclude Include="Bullymong.h">
       <Filter>소스 파일\2.JiYoung</Filter>
     </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>소스 파일\3.YoungSeon</Filter>
+    </ClInclude>
+    <ClInclude Include="progressBar.h">
+      <Filter>소스 파일\3.YoungSeon\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Borderlands2.cpp">
@@ -386,9 +389,6 @@
     <ClCompile Include="TimeManager.cpp">
       <Filter>소스 파일\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="UIManager.cpp">
-      <Filter>소스 파일\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Environment.cpp">
       <Filter>소스 파일\Environment</Filter>
     </ClCompile>
@@ -399,16 +399,16 @@
       <Filter>소스 파일\Particle</Filter>
     </ClCompile>
     <ClCompile Include="UITextView.cpp">
-      <Filter>소스 파일\UI</Filter>
+      <Filter>소스 파일\3.YoungSeon\UI</Filter>
     </ClCompile>
     <ClCompile Include="UIObject.cpp">
-      <Filter>소스 파일\UI</Filter>
+      <Filter>소스 파일\3.YoungSeon\UI</Filter>
     </ClCompile>
     <ClCompile Include="UIImageView.cpp">
-      <Filter>소스 파일\UI</Filter>
+      <Filter>소스 파일\3.YoungSeon\UI</Filter>
     </ClCompile>
     <ClCompile Include="UIButton.cpp">
-      <Filter>소스 파일\UI</Filter>
+      <Filter>소스 파일\3.YoungSeon\UI</Filter>
     </ClCompile>
     <ClCompile Include="VideoDevice.cpp">
       <Filter>소스 파일\VideoDevice</Filter>
@@ -529,6 +529,12 @@
     </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>소스 파일\2.JiYoung</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>소스 파일\3.YoungSeon</Filter>
+    </ClCompile>
+    <ClCompile Include="progressBar.cpp">
+      <Filter>소스 파일\3.YoungSeon\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

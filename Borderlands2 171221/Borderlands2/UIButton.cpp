@@ -43,7 +43,7 @@ void UIButton::Update()
 	UIObject::UpdateChildren();
 }
 
-void UIButton::Render(LPD3DXSPRITE sprite, RECT drawRect)
+void UIButton::Render(LPD3DXSPRITE sprite, const char * progressBarName)
 {
 	sprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 
@@ -52,6 +52,5 @@ void UIButton::Render(LPD3DXSPRITE sprite, RECT drawRect)
 
 	sprite->End();
 
-	UIObject::Render(sprite, drawRect);
+	UIObject::Render(sprite, progressBarName);
 }
-

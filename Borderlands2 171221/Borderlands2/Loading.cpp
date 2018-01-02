@@ -21,7 +21,6 @@ HRESULT Loading::Init()
 	LPDIRECT3DTEXTURE9 tex = g_pTextureManager->GetTexture("Texture/background.jpg", &info);
 	background->SetTexture(tex);
 	background->SetSize(D3DXVECTOR2(info.Width, info.Height));
-	background->SetDebugRender(true);
 
 	UIRoot = new UIObject;
 	UIRoot = background;
@@ -43,7 +42,7 @@ void Loading::Render()
 {
 	RECT rc;
 	GetClientRect(g_hWnd, &rc);
-	UIRoot->Render(backgroundSprite, rc);
+	UIRoot->Render(backgroundSprite, NULL);
 }
 
 void Loading::LoadTexture(const char * fileName, D3DXIMAGE_INFO * imageInfo)

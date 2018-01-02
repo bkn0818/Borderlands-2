@@ -242,7 +242,7 @@ void SkinnedMesh::Moving()
 	worldMat = rotationX * rotationY * translation;
 	D3DDEVICE->SetTransform(D3DTS_WORLD, &worldMat);
 
-	LPD3DXFONT font = g_pFontManager->GetFont(g_pFontManager->QUEST);
+	LPD3DXFONT font = g_pFontManager->GetFont(g_pFontManager->UI);
 	RECT rc = { 0, 0, 200, 200 };
 	char str[1024];
 	sprintf(str, "%.5f, %.5f", g_pCamera->GetAngleX(), g_pCamera->GetAngleY());

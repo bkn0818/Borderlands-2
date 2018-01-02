@@ -24,6 +24,7 @@ private:
 	D3DXVECTOR3*	v;
 	Player*			player;
 	EnemyManager*	em;
+	UIManager* ui;
 
 	vector<SkinnedMesh*> smList;
 

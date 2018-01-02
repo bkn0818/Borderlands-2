@@ -10,6 +10,7 @@ public:
 		NORMAL,
 		CHAT,
 		QUEST,
+		UI,
 	};
 
 private:
