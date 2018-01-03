@@ -111,10 +111,10 @@ void progressBar::init(const char * fullPath, int x, int y, const char * bar, in
 			UIImageView* digit1CurNum = new UIImageView;
 			digit1CurNum->SetTexture(digit1texture);
 			digit1CurNum->SetSize(D3DXVECTOR2(digitimgInfo.Width, digitimgInfo.Height));
-			if (digit == 4) digit1CurNum->SetLocalPos(D3DXVECTOR3(146, 651, 0));
-			if (digit == 3) digit1CurNum->SetLocalPos(D3DXVECTOR3(131, 653, 0));
-			if (digit == 2) digit1CurNum->SetLocalPos(D3DXVECTOR3(116, 655, 0));
-			if (digit == 1) digit1CurNum->SetLocalPos(D3DXVECTOR3(101, 657, 0));
+			if (digit == 4) digit1CurNum->SetLocalPos(D3DXVECTOR3(146 + (Xplus / 2), 651 + (Yplus - 50), 0));
+			if (digit == 3) digit1CurNum->SetLocalPos(D3DXVECTOR3(131 + (Xplus / 2), 653 + (Yplus - 50), 0));
+			if (digit == 2) digit1CurNum->SetLocalPos(D3DXVECTOR3(116 + (Xplus / 2), 655 + (Yplus - 50), 0));
+			if (digit == 1) digit1CurNum->SetLocalPos(D3DXVECTOR3(101 + (Xplus / 2), 657 + (Yplus - 50), 0));
 			digit1CurNum->SetTag(4);
 			progressBarRoot.AddChild(digit1CurNum);
 		}
@@ -125,9 +125,9 @@ void progressBar::init(const char * fullPath, int x, int y, const char * bar, in
 			UIImageView* digit10CurNum = new UIImageView;
 			digit10CurNum->SetTexture(digit10texture);
 			digit10CurNum->SetSize(D3DXVECTOR2(digitimgInfo.Width, digitimgInfo.Height));
-			if (digit == 4) digit10CurNum->SetLocalPos(D3DXVECTOR3(131, 653, 0));
-			if (digit == 3) digit10CurNum->SetLocalPos(D3DXVECTOR3(116, 655, 0));
-			if (digit == 2) digit10CurNum->SetLocalPos(D3DXVECTOR3(101, 657, 0));
+			if (digit == 4) digit10CurNum->SetLocalPos(D3DXVECTOR3(131 + (Xplus / 2), 653 + (Yplus - 50), 0));
+			if (digit == 3) digit10CurNum->SetLocalPos(D3DXVECTOR3(116 + (Xplus / 2), 655 + (Yplus - 50), 0));
+			if (digit == 2) digit10CurNum->SetLocalPos(D3DXVECTOR3(101 + (Xplus / 2), 657 + (Yplus - 50), 0));
 			digit10CurNum->SetTag(5);
 			progressBarRoot.AddChild(digit10CurNum);
 		}
@@ -138,8 +138,8 @@ void progressBar::init(const char * fullPath, int x, int y, const char * bar, in
 			UIImageView* digit100CurNum = new UIImageView;
 			digit100CurNum->SetTexture(digit100texture);
 			digit100CurNum->SetSize(D3DXVECTOR2(digitimgInfo.Width, digitimgInfo.Height));
-			if (digit == 4) digit100CurNum->SetLocalPos(D3DXVECTOR3(116, 655, 0));
-			if (digit == 3) digit100CurNum->SetLocalPos(D3DXVECTOR3(101, 657, 0));
+			if (digit == 4) digit100CurNum->SetLocalPos(D3DXVECTOR3(116 + (Xplus / 2), 655 + (Yplus - 50), 0));
+			if (digit == 3) digit100CurNum->SetLocalPos(D3DXVECTOR3(101 + (Xplus / 2), 657 + (Yplus - 50), 0));
 			digit100CurNum->SetTag(6);
 			progressBarRoot.AddChild(digit100CurNum);
 		}
@@ -150,7 +150,7 @@ void progressBar::init(const char * fullPath, int x, int y, const char * bar, in
 			UIImageView* digit1000CurNum = new UIImageView;
 			digit1000CurNum->SetTexture(digit1000texture);
 			digit1000CurNum->SetSize(D3DXVECTOR2(digitimgInfo.Width, digitimgInfo.Height));
-			digit1000CurNum->SetLocalPos(D3DXVECTOR3(101, 657, 0));
+			digit1000CurNum->SetLocalPos(D3DXVECTOR3(101 + (Xplus / 2), 657 + (Yplus - 50), 0));
 			digit1000CurNum->SetTag(7);
 			progressBarRoot.AddChild(digit1000CurNum);
 		}
@@ -286,10 +286,10 @@ void progressBar::init(const char * fullPath, int x, int y, const char * bar, in
 		UIImageView* digitSlash = new UIImageView;
 		digitSlash->SetTexture(digitSlashTexture);
 		digitSlash->SetSize(D3DXVECTOR2(digitimgInfo.Width, digitimgInfo.Height));
-		if (digit == 4) digitSlash->SetLocalPos(D3DXVECTOR3(1042, 649, 0));
-		if (digit == 3) digitSlash->SetLocalPos(D3DXVECTOR3(1027, 651, 0));
-		if (digit == 2) digitSlash->SetLocalPos(D3DXVECTOR3(1012, 653, 0));
-		if (digit == 1) digitSlash->SetLocalPos(D3DXVECTOR3(997, 655, 0));
+		if (digit == 4) digitSlash->SetLocalPos(D3DXVECTOR3(1042 - (Xplus / 2), 649 + (Yplus - 50), 0));
+		if (digit == 3) digitSlash->SetLocalPos(D3DXVECTOR3(1027 - (Xplus / 2), 651 + (Yplus - 50), 0));
+		if (digit == 2) digitSlash->SetLocalPos(D3DXVECTOR3(1012 - (Xplus / 2), 653 + (Yplus - 50), 0));
+		if (digit == 1) digitSlash->SetLocalPos(D3DXVECTOR3(997 - (Xplus / 2), 655 + (Yplus - 50), 0));
 		digitSlash->SetTag(13);
 		progressBarRoot.AddChild(digitSlash);
 
@@ -301,7 +301,7 @@ void progressBar::init(const char * fullPath, int x, int y, const char * bar, in
 			UIImageView* digit1CurNum = new UIImageView;
 			digit1CurNum->SetTexture(digit1texture);
 			digit1CurNum->SetSize(D3DXVECTOR2(digitimgInfo.Width, digitimgInfo.Height));
-			digit1CurNum->SetLocalPos(D3DXVECTOR3(977, 657, 0));
+			digit1CurNum->SetLocalPos(D3DXVECTOR3(977 - (Xplus / 2), 657 + (Yplus - 50), 0));
 			progressBarRoot.AddChild(digit1CurNum);
 		}
 		//digit10
@@ -311,7 +311,7 @@ void progressBar::init(const char * fullPath, int x, int y, const char * bar, in
 			UIImageView* digit10CurNum = new UIImageView;
 			digit10CurNum->SetTexture(digit10texture);
 			digit10CurNum->SetSize(D3DXVECTOR2(digitimgInfo.Width, digitimgInfo.Height));
-			digit10CurNum->SetLocalPos(D3DXVECTOR3(992, 655, 0));
+			digit10CurNum->SetLocalPos(D3DXVECTOR3(992 - (Xplus / 2), 655 + (Yplus - 50), 0));
 			progressBarRoot.AddChild(digit10CurNum);
 		}
 		//digit100
@@ -321,7 +321,7 @@ void progressBar::init(const char * fullPath, int x, int y, const char * bar, in
 			UIImageView* digit100CurNum = new UIImageView;
 			digit100CurNum->SetTexture(digit100texture);
 			digit100CurNum->SetSize(D3DXVECTOR2(digitimgInfo.Width, digitimgInfo.Height));
-			digit100CurNum->SetLocalPos(D3DXVECTOR3(1007, 653, 0));
+			digit100CurNum->SetLocalPos(D3DXVECTOR3(1007 - (Xplus / 2), 653 + (Yplus - 50), 0));
 			progressBarRoot.AddChild(digit100CurNum);
 		}
 		//digit1000
@@ -331,7 +331,7 @@ void progressBar::init(const char * fullPath, int x, int y, const char * bar, in
 			UIImageView* digit1000CurNum = new UIImageView;
 			digit1000CurNum->SetTexture(digit1000texture);
 			digit1000CurNum->SetSize(D3DXVECTOR2(digitimgInfo.Width, digitimgInfo.Height));
-			digit1000CurNum->SetLocalPos(D3DXVECTOR3(1022, 651, 0));
+			digit1000CurNum->SetLocalPos(D3DXVECTOR3(1022 - (Xplus / 2), 651 + (Yplus - 50), 0));
 			progressBarRoot.AddChild(digit1000CurNum);
 		}
 
@@ -343,10 +343,10 @@ void progressBar::init(const char * fullPath, int x, int y, const char * bar, in
 			UIImageView* digit1CurNum = new UIImageView;
 			digit1CurNum->SetTexture(digit1texture);
 			digit1CurNum->SetSize(D3DXVECTOR2(digitimgInfo.Width, digitimgInfo.Height));
-			if (digit == 4) digit1CurNum->SetLocalPos(D3DXVECTOR3(1057, 647, 0));
-			if (digit == 3) digit1CurNum->SetLocalPos(D3DXVECTOR3(1042, 649, 0));
-			if (digit == 2) digit1CurNum->SetLocalPos(D3DXVECTOR3(1027, 651, 0));
-			if (digit == 1) digit1CurNum->SetLocalPos(D3DXVECTOR3(1012, 653, 0));
+			if (digit == 4) digit1CurNum->SetLocalPos(D3DXVECTOR3(1057 - (Xplus / 2), 647 + (Yplus - 50), 0));
+			if (digit == 3) digit1CurNum->SetLocalPos(D3DXVECTOR3(1042 - (Xplus / 2), 649 + (Yplus - 50), 0));
+			if (digit == 2) digit1CurNum->SetLocalPos(D3DXVECTOR3(1027 - (Xplus / 2), 651 + (Yplus - 50), 0));
+			if (digit == 1) digit1CurNum->SetLocalPos(D3DXVECTOR3(1012 - (Xplus / 2), 653 + (Yplus - 50), 0));
 			digit1CurNum->SetTag(14);
 			progressBarRoot.AddChild(digit1CurNum);
 		}
@@ -357,9 +357,9 @@ void progressBar::init(const char * fullPath, int x, int y, const char * bar, in
 			UIImageView* digit10CurNum = new UIImageView;
 			digit10CurNum->SetTexture(digit10texture);
 			digit10CurNum->SetSize(D3DXVECTOR2(digitimgInfo.Width, digitimgInfo.Height));
-			if (digit == 4) digit10CurNum->SetLocalPos(D3DXVECTOR3(1072, 645, 0));
-			if (digit == 3) digit10CurNum->SetLocalPos(D3DXVECTOR3(1057, 647, 0));
-			if (digit == 2) digit10CurNum->SetLocalPos(D3DXVECTOR3(1042, 649, 0));
+			if (digit == 4) digit10CurNum->SetLocalPos(D3DXVECTOR3(1072 - (Xplus / 2), 645 + (Yplus - 50), 0));
+			if (digit == 3) digit10CurNum->SetLocalPos(D3DXVECTOR3(1057 - (Xplus / 2), 647 + (Yplus - 50), 0));
+			if (digit == 2) digit10CurNum->SetLocalPos(D3DXVECTOR3(1042 - (Xplus / 2), 649 + (Yplus - 50), 0));
 			digit10CurNum->SetTag(15);
 			progressBarRoot.AddChild(digit10CurNum);
 		}
@@ -370,8 +370,8 @@ void progressBar::init(const char * fullPath, int x, int y, const char * bar, in
 			UIImageView* digit100CurNum = new UIImageView;
 			digit100CurNum->SetTexture(digit100texture);
 			digit100CurNum->SetSize(D3DXVECTOR2(digitimgInfo.Width, digitimgInfo.Height));
-			if (digit == 4) digit100CurNum->SetLocalPos(D3DXVECTOR3(1087, 643, 0));
-			if (digit == 3) digit100CurNum->SetLocalPos(D3DXVECTOR3(1072, 645, 0));
+			if (digit == 4) digit100CurNum->SetLocalPos(D3DXVECTOR3(1087 - (Xplus / 2), 643 + (Yplus - 50), 0));
+			if (digit == 3) digit100CurNum->SetLocalPos(D3DXVECTOR3(1072 - (Xplus / 2), 645 + (Yplus - 50), 0));
 			digit100CurNum->SetTag(16);
 			progressBarRoot.AddChild(digit100CurNum);
 		}
@@ -382,7 +382,7 @@ void progressBar::init(const char * fullPath, int x, int y, const char * bar, in
 			UIImageView* digit1000CurNum = new UIImageView;
 			digit1000CurNum->SetTexture(digit1000texture);
 			digit1000CurNum->SetSize(D3DXVECTOR2(digitimgInfo.Width, digitimgInfo.Height));
-			digit1000CurNum->SetLocalPos(D3DXVECTOR3(1102, 641, 0));
+			digit1000CurNum->SetLocalPos(D3DXVECTOR3(1102 - (Xplus / 2), 641 + (Yplus - 50), 0));
 			digit1000CurNum->SetTag(17);
 			progressBarRoot.AddChild(digit1000CurNum);
 		}

@@ -10,11 +10,14 @@ public: \
 		return &instance; \
 	}
 
-#define WINSIZEX 1600
-#define WINSIZEY 1200
+#define WINSIZEX 1920
+#define WINSIZEY 1035
 
 #define UIWINSIZEX 1280
 #define UIWINSIZEY 768
+
+#define Xplus 640
+#define Yplus 267
 
 
 #define SAFE_RELEASE(p) if(p) {(p)->Release(); (p) = NULL;}

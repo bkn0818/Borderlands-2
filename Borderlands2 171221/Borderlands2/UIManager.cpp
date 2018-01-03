@@ -8,13 +8,13 @@ void UIManager::Init()
 {
 	//Bullet,HP EmptyBar
 	emptyBar = new progressBar;
-	emptyBar->init("UI/PlayerBasicUI.png", 0, 0, "EmptyBar", NULL);
+	emptyBar->init("UI/PlayerBasicUI.png", 0 + (Xplus / 2), 0 + (Yplus - 50), "EmptyBar", NULL);
 	//HP
 	HPBar = new progressBar;
-	HPBar->init("UI/PlayerHPBar.png", 90, 630, "HP", 100);
+	HPBar->init("UI/PlayerHPBar.png", 90 + (Xplus / 2), 630 + (Yplus - 50), "HP", 100);
 	//Bullet
 	BulletBar = new progressBar;
-	BulletBar->init("UI/PlayerBulletBar.png", 970, 630, "Bullet", 100);
+	BulletBar->init("UI/PlayerBulletBar.png", 970 - (Xplus / 2), 630 + (Yplus - 50), "Bullet", 100);
 
 
 	//Å×½ºÆ®
