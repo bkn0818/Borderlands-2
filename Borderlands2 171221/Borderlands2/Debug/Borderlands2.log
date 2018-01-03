@@ -1,0 +1,9 @@
+﻿  UIManager.cpp
+c:\users\영털\documents\github\borderlands-2\borderlands2 171221\borderlands2\uimanager.cpp(10): warning C4316: 'progressBar': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\영털\documents\github\borderlands-2\borderlands2 171221\borderlands2\uimanager.cpp(14): warning C4316: 'progressBar': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\영털\documents\github\borderlands-2\borderlands2 171221\borderlands2\uimanager.cpp(18): warning C4316: 'progressBar': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  Borderlands2.cpp
+c:\users\영털\documents\github\borderlands-2\borderlands2 171221\borderlands2\borderlands2.cpp : warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  코드를 생성하고 있습니다...
+  Borderlands2.vcxproj -> C:\Users\영털\Documents\GitHub\Borderlands-2\Borderlands2 171221\Debug\Borderlands2.exe
+  Borderlands2.vcxproj -> C:\Users\영털\Documents\GitHub\Borderlands-2\Borderlands2 171221\Debug\Borderlands2.pdb (Partial PDB)

@@ -13,9 +13,10 @@ public: \
 #define WINSIZEX 1920
 #define WINSIZEY 1035
 
+//UI용
 #define UIWINSIZEX 1280
 #define UIWINSIZEY 768
-
+//ui이미지보정용
 #define Xplus 640
 #define Yplus 267
 

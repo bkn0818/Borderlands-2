@@ -64,11 +64,18 @@ void GameScene::MainProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		{
 			static int n = 0;
 			++n;
-
-			ui->OnClick(n);			//bulletbar
-			ui->OnAttacked(n);		//hpbar
-
 			//player->SetAnimationIndex(++n);
+
+
+			//ui
+			static int click = 0;
+			static int damage = 0;
+			//bullet
+			++click;
+			ui->OnClick(click);
+			//hp
+			damage = 5;
+			ui->OnAttacked(damage);
 		}
 		break;
 		case VK_ESCAPE:
