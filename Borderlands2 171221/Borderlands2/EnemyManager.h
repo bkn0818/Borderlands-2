@@ -1,14 +1,15 @@
 #pragma once
 #include "Bullymong.h"
 #include "Boss.h"
+#define MAX_ENEMY 2
 
 class iMap;
 
 class EnemyManager
 {
 private:
-	//	Bullymong*		bm[2];
-	Bullymong*		bm;
+	Bullymong*		bm[MAX_ENEMY];
+//	Bullymong*		bm;
 
 public:
 	EnemyManager();
