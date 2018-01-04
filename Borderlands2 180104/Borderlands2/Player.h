@@ -2,6 +2,7 @@
 class iMap;
 class SkinnedMesh;
 class CharacterCtrl;
+class UIManager;
 
 enum PlayerStat
 {
@@ -47,10 +48,11 @@ struct tagAssassin
 	//플레이어 체력
 	int				Hp;
 	int				MaxHp;
-	//플레이어 실드
-	int				Sp;
-	int				MaxSp;
 	
+	int				armo;
+	int				bullet;
+	int				maxBullet;
+
 	bool			isDie;
 };
 
@@ -60,18 +62,22 @@ private:
 	tagAssassin		_player;
 	CharacterCtrl*	charCtrl;
 	SkinnedMesh*	test;
+	UIManager*		ui;
 
 	LPD3DXMESH		bulletTest;
 	D3DXMATRIX		bulletMat;
 	D3DMATERIAL9	bulletPick;
 	D3DXVECTOR3		bulletPos;
+	WPARAM			WParam; 
+	LPARAM			LParam;
+
+	int				n = 8;
 
 public:
 	void Init();
 	void Update(iMap* obj);
 	void Render();
 
-	void Recovery();
 	void Hit(float dmg);
 	void Dead();
 	void WeaponCtrl();

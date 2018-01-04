@@ -25,9 +25,6 @@ HRESULT GameScene::Init(void)
 	g_pCamera->SetupCamera(D3DDEVICE, 300);
 	SetLight();
 
-	ui = new UIManager;
-	ui->Init();
-
 	return S_OK;
 }
 
@@ -43,8 +40,6 @@ void GameScene::Update(void)
 	player->Update(environment->GetHeightMap());
 
 	em->Update(environment->GetHeightMap(), player->GetPosition(), player->GetSphere());
-
-	ui->Update();
 }
 
 void GameScene::Render(void)
@@ -52,7 +47,6 @@ void GameScene::Render(void)
 	player->Render();
 	em->Render();
 	environment->Render();
-	ui->Render();
 }
 
 void GameScene::MainProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -62,20 +56,6 @@ void GameScene::MainProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 		case WM_LBUTTONDOWN:
 		{
-			static int n = 0;
-			++n;
-			//player->SetAnimationIndex(++n);
-
-
-			//ui
-			static int click = 0;
-			static int damage = 0;
-			//bullet
-			++click;
-			ui->OnClick(click);
-			//hp
-			damage = 5;
-			ui->OnAttacked(damage);
 		}
 		break;
 		case VK_ESCAPE:

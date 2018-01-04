@@ -16,10 +16,12 @@ void Player::Init()
 	charCtrl->Init();
 
 	//기본스탯설정
-	_player.MaxHp = 10;
-	_player.MaxSp = 10;
+	_player.MaxHp = 100;
 	_player.Hp = _player.MaxHp;
-	_player.Sp = _player.MaxSp;
+
+	_player.armo = 100;
+	_player.maxBullet = 30;
+	_player.bullet = _player.maxBullet;
 
 	_player.isDie = false;
 
@@ -39,6 +41,9 @@ void Player::Init()
 	bulletPick.Diffuse = bulletPick.Ambient = bulletPick.Specular = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
 	D3DXCreateSphere(D3DDEVICE, 0.01f, 10.f, 10.f, &bulletTest, NULL);
 	D3DXMatrixIdentity(&bulletMat);
+
+	ui = new UIManager;
+	ui->Init(_player.MaxHp);
 }
 
 void Player::Update(iMap* obj)
@@ -61,6 +66,8 @@ void Player::Update(iMap* obj)
 	charCtrl->GetCameraLookAt(g_pCamera->GetLookAt(), g_pCamera->GetSide());
 
 	Dead();
+
+	ui->Update();
 }
 
 void Player::Render()
@@ -73,37 +80,22 @@ void Player::Render()
 	D3DDEVICE->SetTransform(D3DTS_WORLD, &bulletMat);
 	bulletTest->DrawSubset(0);
 
-	LPD3DXFONT font = g_pFontManager->GetFont(g_pFontManager->UI);
+	/*LPD3DXFONT font = g_pFontManager->GetFont(g_pFontManager->UI);
 	RECT rc = { 200, 850, 200, 200 };
 	char str[1024];
 	sprintf(str, "%d , %d", _player.Sp, _player.Hp);
-	font->DrawTextA(nullptr, str, strlen(str), &rc, DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(255, 0, 255));
-}
-
-void Player::Recovery()
-{
-	if (_player.Sp < _player.MaxSp)
-	{
-		_player.Sp += 10;
-		if (_player.Sp > _player.MaxSp)_player.Sp = _player.MaxSp;
-	}
+	font->DrawTextA(nullptr, str, strlen(str), &rc, DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(255, 0, 255));*/
+	ui->Render();
 }
 
 void Player::Hit(float dmg)
 {
-	if (_player.Sp > 0)
+	_player.Hp -= dmg;
+	ui->OnAttacked(dmg);
+	if (_player.Hp <= 0)
 	{
-		_player.Sp -= dmg;
-		if (_player.Sp < 0) _player.Sp = 0;
-	}
-	else
-	{
-		_player.Hp -= dmg;
-		if (_player.Hp <= 0)
-		{
-			_player.Hp = 0;
-			_player.isDie = true;
-		}
+		_player.Hp = 0;
+		_player.isDie = true;
 	}
 }
 
@@ -111,10 +103,10 @@ void Player::Dead()
 {
 	if (_player.isDie)
 	{
+		D3DXVECTOR3 pos = _player.skinnedMesh->GetPosition();
 		_player.skinnedMesh = new SkinnedMesh("./sjXFile/", "playerTest.X");
-		_player.skinnedMesh->SetPosition(D3DXVECTOR3(0, 0, 0));
+		_player.skinnedMesh->SetPosition(pos);
 	}
-	
 }
 
 void Player::WeaponCtrl()
@@ -136,12 +128,13 @@ void Player::KeyCtrl()
 			|| g_pKeyManager->IsStayKeyDown('A')
 			|| g_pKeyManager->IsStayKeyDown('D'))
 		{
-			if (_player.stat == PLAYER_IDLE)
+			if (_player.stat == PLAYER_IDLE )
 			{
 				_player.stat = PLAYER_RUN_F;
 				_player.skinnedMesh->SetAnimationIndex(_player.stat);
 			}
-			else if (_player.stat == PLAYER_SMG_IDLE)
+			else if (_player.stat == PLAYER_SMG_IDLE
+				&& _player.stat != PLAYER_SMG_BMADE_RELOAD)
 			{
 				_player.stat = PLAYER_SMG_RUN_F;
 				_player.skinnedMesh->SetAnimationIndex(_player.stat);
@@ -174,38 +167,53 @@ void Player::KeyCtrl()
 		}
 
 		//////////////////////////////////////////////////////발사
-		if (g_pKeyManager->IsStayKeyDown(VK_LBUTTON) && _player.stat < PLAYER_JUMP_END)
+		if (g_pKeyManager->IsStayKeyDown(VK_LBUTTON) 
+			&& _player.stat < PLAYER_JUMP_END 
+			&& _player.bullet > 0
+			&& _player.stat != PLAYER_SMG_BMADE_RELOAD)
 		{
 			_player.stat = PLAYER_SMG_IDLE;
 			_player.skinnedMesh->SetAnimationIndex(_player.stat);
 
+			
+			if (n % 8 == 0)
+			{
+				_player.bullet--;
+				ui->OnClick(1);
+				RayCtrl ray = ray.RayAtWorldSpace(LOWORD(LParam), HIWORD(LParam));
+				bulletPos = ray.orgPosition + (ray.direction * 2);
+			}
+			++n;
 			g_pCamera->TestPt(true);
 		}
-		if (g_pKeyManager->IsOnceKeyUp(VK_LBUTTON))g_pCamera->TestPt(false);
+		if (g_pKeyManager->IsOnceKeyUp(VK_LBUTTON)) 
+		{
+			n = 8;
+			g_pCamera->TestPt(false);
+		}
+
+		if (g_pKeyManager->IsOnceKeyDown('R'))
+		{
+			if (_player.bullet != _player.maxBullet)
+			{
+				_player.stat = PLAYER_SMG_BMADE_RELOAD;
+				_player.skinnedMesh->SetAnimationIndex(_player.stat);
+				if (_player.skinnedMesh->GetAnimEnd(PLAYER_SMG_BMADE_RELOAD))
+				{
+					_player.bullet += (_player.maxBullet - _player.bullet);
+					_player.stat = PLAYER_SMG_IDLE;
+					_player.skinnedMesh->SetAnimationIndex(_player.stat);
+				}
+			}
+		}
 }
+
+
 
 void Player::MainProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	switch (msg)
-	{
-	case WM_LBUTTONDOWN:
-	{
-		/*bulletPos = D3DXVECTOR3( test->GetCamBoneMag05()._41
-			, test->GetCamBoneMag05()._42
-			, test->GetCamBoneMag05()._43);*/
-		if (_player.stat < PLAYER_JUMP_END)
-		{
-			RayCtrl ray = ray.RayAtWorldSpace(LOWORD(lParam), HIWORD(lParam));
-			bulletPos = ray.orgPosition + (ray.direction * 2);
-		}
-	}
-	break;
-	case WM_RBUTTONDOWN:
-	{
-		Hit(10.f);
-	}
-	break;
-	}
+	WParam = wParam;
+	LParam = lParam;
 }
 
 D3DXVECTOR3 Player::GetPosition()
