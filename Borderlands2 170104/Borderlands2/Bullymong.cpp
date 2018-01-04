@@ -20,7 +20,7 @@ HRESULT Bullymong::Init(D3DXVECTOR3 position)
 	pos = position;
 	curAnimSet = BMONG_WALK;
 
-	sm = g_pSkinnedMeshManager->GetSkinnedMesh("./XFile/", "bullymong.X");
+	sm = g_pSkinnedMeshManager->GetEnemySkinnedMesh("./XFile/", "bullymong.X");
 	sm->SetMoving(false);
 	sm->SetPosition(pos);
 	sm->SetAnimationIndex(curAnimSet);
