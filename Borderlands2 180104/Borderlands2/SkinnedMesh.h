@@ -44,7 +44,7 @@ public:
 
 	inline void SetMoving(bool moving)
 	{
-		isMoving = moving;
+		isMove = moving;
 	}
 
 	// 지영 추가: skinnedMesh회전용========== 
@@ -80,7 +80,6 @@ private:
 	SphereInfo					m_stBoundingSphere;
 	D3DXMATRIX					worldMat;
 	LPD3DXMESH					mesh;
-	bool						isMove;
 	float						scale = 1.0f;
 	float						rotX = 1.0f, rotY = 1.0f;
 
@@ -91,9 +90,9 @@ private:
 	float						passedBlendTime = 0.0f;
 
 	// 지영 추가: skinnedMesh들이 플레이어 sM과 함께 회전하지 않게끔 
-	bool						isMoving;
 	float						angleX;
 	float						angleY;
+	bool						isMove;
 	// =============================================================
 };
 

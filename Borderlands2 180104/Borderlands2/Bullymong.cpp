@@ -45,7 +45,6 @@ HRESULT Bullymong::Init(D3DXVECTOR3 position)
 	ZeroMemory(&objRock.material, sizeof(D3DMATERIAL9));
 	objRock.material.Ambient = objRock.material.Diffuse = objRock.material.Specular = color;
 
-
 	isRecog = false;
 	showBSphere = false;
 
@@ -79,7 +78,7 @@ void Bullymong::Update(iMap* imap, D3DXVECTOR3 posPlayer, SphereInfo* spherePlay
 {
 	passedTime += g_pTimeManager->GetDeltaTime(); //0.016
 
-												  // test==========================================
+	// test==========================================
 	px = posPlayer.x;
 	py = posPlayer.y;
 	pz = posPlayer.z;
@@ -101,7 +100,6 @@ void Bullymong::Update(iMap* imap, D3DXVECTOR3 posPlayer, SphereInfo* spherePlay
 //-----------------------------------------------------------------------------
 void Bullymong::Render()
 {
-
 	// 거리 테스트 
 	LPD3DXFONT font = g_pFontManager->GetFont(g_pFontManager->UI);
 	RECT rc = { 400, 0, 600, 50 };
@@ -118,13 +116,9 @@ void Bullymong::Render()
 	LPD3DXFONT font3 = g_pFontManager->GetFont(g_pFontManager->UI);
 	RECT rc3 = { 400, 130, 600, 150 };
 	char str3[1024];
-	sprintf(str3, "passedTime: %.3f", passedTime);
+	sprintf(str3, "passedTime: %.3f fradius: %.3f", passedTime, sm->GetBoundingSphere()->fRadius);
 	font2->DrawTextA(nullptr, str3, strlen(str3), &rc3, DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 0));
 
-
-	sm->UpdateAndRender();
-
-	// bounding Sphere========================================
 	D3DXMATRIXA16 matWorld;
 
 	D3DXMatrixTranslation(&matWorld,
@@ -133,6 +127,10 @@ void Bullymong::Render()
 		pos.z);
 
 	D3DDEVICE->SetTransform(D3DTS_WORLD, &matWorld);
+
+	sm->UpdateAndRender();
+
+	// bounding Sphere========================================
 	D3DDEVICE->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	D3DDEVICE->SetMaterial(&stBSphere[SPHERE_RECOG].material);
 
@@ -195,7 +193,7 @@ void Bullymong::Move(D3DXVECTOR3 posPlayer)
 	int rNum = rand() % 2;
 	bool isMoveEnd = false; // 다 움직였는가 
 
-							// 1. 인식O: THROWROCK 혹은 RUN 혹은 PUNCH
+	// 1. 인식O: THROWROCK 혹은 RUN 혹은 PUNCH
 	if (isRecog) {
 		float closeAtkRange = stBSphere[SPHERE_ATTACK].sphereInfo.fRadius;
 		// 2. hp가 40% 이상 && 플레이어와의 간격이 근접 공격 범위 초과일 때: 던지기
@@ -243,16 +241,14 @@ void Bullymong::Move(D3DXVECTOR3 posPlayer)
 		else if (hp > HPMAX_BMONG * 0.3 || distance <= closeAtkRange) {
 		}
 		// 3. 플레이어와의 간격이 인식 범위*2이상일 때 인식 해제 
-		else if (distance >= stBSphere[SPHERE_RECOG].sphereInfo.fRadius * 2)
-		{
+		else if (distance >= stBSphere[SPHERE_RECOG].sphereInfo.fRadius * 2) {
 			isRecog = false;
 		}
 	}
 	// 1. 인식X: WALK 혹은 IDLE
 	else {
 		// 2. WALK도 IDLE도 아니라면: 둘 중 하나로  
-		if (curAnimSet != BMONG_WALK && curAnimSet != BMONG_IDLE)
-		{
+		if (curAnimSet != BMONG_WALK && curAnimSet != BMONG_IDLE) {
 			if (!rNum)	curAnimSet = BMONG_WALK;
 			else		curAnimSet = BMONG_IDLE;
 			sm->SetAnimationIndex(curAnimSet);

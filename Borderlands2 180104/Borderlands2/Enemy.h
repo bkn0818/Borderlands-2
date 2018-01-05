@@ -1,5 +1,5 @@
 #pragma once
-#define HPMAX_BMONG 586
+#define HPMAX_BMONG	586
 #define HPMAX_BOSS	1056
 
 class iMap;
@@ -39,7 +39,7 @@ protected:
 	SkinnedMesh*				sm;
 	DWORD						hp;
 	D3DXVECTOR3					pos;				// 현재 위치
-	D3DXVECTOR3					posTarget;			// 이동할 위치 
+	D3DXVECTOR3					posNext;			// 이동할 위치 
 	float						direction;			// 최종 목표까지의 방향(라디안 기준)
 	DWORD						curAnimSet;			// 현재 AnimationSet
 	float						speed;				// speed
@@ -62,12 +62,12 @@ protected:
 
 	tagBoundingSphere			stBSphere[SPHERE_END];	// boundingSphere들
 
-	void		SetHeightMap(iMap* imap);
-	void		SetBoundingSphere(tagBoundingSphere& sphere, float radius,
-		int r, int g, int b);
-	bool		IsCollideSphere(D3DXVECTOR3* spCenter1, float spRadius1,
-		D3DXVECTOR3* spCenter2, float spRadius2);
-	void		IsRecogPlayer(D3DXVECTOR3 posPlayer, SphereInfo* spherePlayer);
+	void		SetHeightMap( iMap* imap );
+	void		SetBoundingSphere(	tagBoundingSphere& sphere, float radius,
+									int r, int g, int b );
+	bool		IsCollideSphere( D3DXVECTOR3* spCenter1, float spRadius1,
+								 D3DXVECTOR3* spCenter2, float spRadius2 );
+	void		IsRecogPlayer( D3DXVECTOR3 posPlayer, SphereInfo* spherePlayer );
 
 
 public:

@@ -108,7 +108,7 @@ void Enemy::SetNewTarget(D3DXVECTOR3* pEach, float radiusEach)
 	// 목표지점를 찾는다.
 	while (isColliEach)
 	{
-		GetNewPosition(&posTarget);
+		GetNewPosition(&posNext);
 
 		if (!IsCollideSphere(pEach, radiusEach, &pos, stBSphere[SPHERE_ASSAULT].sphereInfo.fRadius))
 			isColliEach = false;
@@ -134,21 +134,21 @@ void Enemy::ComputeDirection()
 	// +          -
 	// z  
 	D3DXVECTOR3 vDiff;
-	D3DXVec3Subtract(&vDiff, &posTarget, &pos);
+	D3DXVec3Subtract(&vDiff, &posNext, &pos);
 	D3DXVec3Normalize(&vDiff, &vDiff);
 
 	// 1. 같은 세로줄 
 	if (vDiff.z == 0.f) {
-		if (vDiff.x > 0.f)		// target Position이 뒤쪽
+		if (vDiff.x > 0.f)		// Next Position이 뒤쪽
 			direction = D3DX_PI;
-		else					// target Position이 앞쪽 
+		else					// Next Position이 앞쪽 
 			direction = 0.0f;
 	}
-	// 2. 현재 position보다 target position이 왼쪽
+	// 2. 현재 position보다 Next position이 왼쪽
 	else if (vDiff.z > 0.f) {
 		direction = acosf(vDiff.x);
 	}
-	// 3. target position이 현재 position보다 오른쪽
+	// 3. Next position이 현재 position보다 오른쪽
 	else if (vDiff.z < 0.f) {
 		direction = acosf(-vDiff.x) + D3DX_PI;
 	}

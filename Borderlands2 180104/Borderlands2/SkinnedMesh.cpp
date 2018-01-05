@@ -13,6 +13,7 @@ SkinnedMesh::SkinnedMesh()
 	, m_pmWorkingPalette(NULL)
 	, m_pEffect(NULL)
 	, m_vPosition(0, 0, 0)
+	, isMove(true)
 {
 }
 
@@ -23,6 +24,7 @@ SkinnedMesh::SkinnedMesh(char* szFolder, char* szFilename)
 	, m_pmWorkingPalette(NULL)
 	, m_pEffect(NULL)
 	, m_vPosition(0, 0, 0)
+	, isMove(true)
 {
 	SkinnedMesh* skinnedMesh = g_pSkinnedMeshManager->GetSkinnedMesh(szFolder, szFilename);
 
@@ -232,14 +234,35 @@ void SkinnedMesh::SetupBoneMatrixPtrs(LPD3DXFRAME frame)
 
 void SkinnedMesh::Moving()
 {
+	// 지영 수정==============================================
+	// 다른 SkinnedMesh까지 같이 움직이지 않게 수정
+	// 변경하지마 변경하지마 변경하지마 변경하지마 변경하지마
+	float tempAngleX, tempAngleY;
 	D3DXMATRIX rotationX, rotationY, rotation, translation;
+
+	// isMove = true 오직 플레이어만 
+	if (isMove) {
+		tempAngleX = -g_pCamera->GetAngleX();
+		tempAngleY = g_pCamera->GetAngleY() - 1.5f;
+	}
+	else { // 그 외
+		tempAngleX = angleX;
+		tempAngleY = angleY;
+	}
+
 	D3DXMatrixIdentity(&rotationX);
-	D3DXMatrixRotationZ(&rotationX, -g_pCamera->GetAngleX());
-	D3DXMatrixRotationY(&rotationY, g_pCamera->GetAngleY() - 1.5f);
-	rotation = rotationX * rotationY;
+	D3DXMatrixRotationZ(&rotationX, tempAngleX);
+	D3DXMatrixRotationY(&rotationY, tempAngleY);
 	D3DXMatrixTranslation(&translation, m_vPosition.x, m_vPosition.y, m_vPosition.z);
 	
-	worldMat = rotationX * rotationY * translation;
+	if (isMove) {	// 플레이어만 
+		rotation = rotationX * rotationY;
+		worldMat = rotation * translation;
+	}
+	else {
+		worldMat = rotationY * translation;
+	}
+	// =======================================================
 	D3DDEVICE->SetTransform(D3DTS_WORLD, &worldMat);
 
 	LPD3DXFONT font = g_pFontManager->GetFont(g_pFontManager->UI);
@@ -283,9 +306,6 @@ void SkinnedMesh::DrawSphere()
 		ZeroMemory(&material, sizeof D3DMATERIAL9);
 		material.Ambient = material.Diffuse = material.Specular = D3DXCOLOR(1.0f, 0.5f, 0.5f, 1.0f);
 		D3DDEVICE->SetMaterial(&material);
-		D3DXMATRIX sphereMatrix;
-		D3DXMatrixTranslation(&sphereMatrix, m_vPosition.x, m_vPosition.y, m_vPosition.z);
-		worldMat *= sphereMatrix;
 		mesh->DrawSubset(0);
 		D3DDEVICE->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 	}

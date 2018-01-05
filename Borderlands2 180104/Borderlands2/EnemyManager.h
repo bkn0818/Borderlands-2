@@ -8,21 +8,21 @@ class iMap;
 class EnemyManager
 {
 private:
-	Bullymong*		bm[MAX_ENEMY];
-//	Bullymong*		bm;
+//	Bullymong*		bm[MAX_ENEMY];
+	Bullymong*		bm;
 
 public:
 	EnemyManager();
 	~EnemyManager();
 
-	HRESULT Init();
-	void Update(iMap* imap, D3DXVECTOR3 posPlayer, SphereInfo* spherePlayer);
-	void Render();
-	void Release();
+	HRESULT		Init();
+	void		Update(iMap* imap, D3DXVECTOR3 posPlayer, SphereInfo* spherePlayer);
+	void		Render();
+	void		Release();
 
-	void SetNewPosition();
-	bool CollisionEach(D3DXVECTOR3* posEnemy, float radiusEnemy);
-	void EnemyCollision();
-	void ObjectCollision();
+	void		SetNewPosition();
+	bool		CollisionEach(D3DXVECTOR3* posEnemy, float radiusEnemy);
+	void		EnemyCollision();
+	void		ObjectCollision();
 
 };
