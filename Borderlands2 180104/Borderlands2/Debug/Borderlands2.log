@@ -1,0 +1,6 @@
+﻿  Player.cpp
+c:\users\sung\desktop\borderlands2 180104\borderlands2\player.cpp(42): warning C4244: '인수': 'float'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\sung\desktop\borderlands2 180104\borderlands2\player.cpp(45): warning C4316: 'UIManager': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\sung\desktop\borderlands2 180104\borderlands2\player.cpp(93): warning C4244: '-=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\sung\desktop\borderlands2 180104\borderlands2\player.cpp(94): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Borderlands2.vcxproj -> C:\Users\sung\Desktop\Borderlands2 180104\Debug\Borderlands2.exe

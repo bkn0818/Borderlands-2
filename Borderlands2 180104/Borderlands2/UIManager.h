@@ -15,7 +15,7 @@ public:
 	UIManager();
 	~UIManager();
 
-	void Init();
+	void Init(int Hp);
 	void Release();
 	void Update();
 	void Destroy();
