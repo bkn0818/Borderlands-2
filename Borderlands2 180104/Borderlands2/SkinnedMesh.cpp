@@ -42,8 +42,6 @@ SkinnedMesh::SkinnedMesh(char* szFolder, char* szFilename)
 		&animationController);
 }
 
-
-
 SkinnedMesh::~SkinnedMesh()
 {
 	SAFE_RELEASE(animationController);

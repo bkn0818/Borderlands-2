@@ -8,6 +8,7 @@ Player::Player()
 
 Player::~Player()
 {
+	//AimRoot->Destroy();
 }
 
 void Player::Init()
@@ -42,6 +43,8 @@ void Player::Init()
 	D3DXCreateSphere(D3DDEVICE, 0.01f, 10.f, 10.f, &bulletTest, NULL);
 	D3DXMatrixIdentity(&bulletMat);
 
+	AimCtrl();
+
 	ui = new UIManager;
 	ui->Init(_player.MaxHp);
 }
@@ -68,6 +71,8 @@ void Player::Update(iMap* obj)
 	Dead();
 
 	ui->Update();
+
+	
 }
 
 void Player::Render()
@@ -86,6 +91,7 @@ void Player::Render()
 	sprintf(str, "%d , %d", _player.Sp, _player.Hp);
 	font->DrawTextA(nullptr, str, strlen(str), &rc, DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(255, 0, 255));*/
 	ui->Render();
+	AimRoot->Render(aimSprite, nullptr);
 }
 
 void Player::Hit(float dmg)
@@ -142,12 +148,15 @@ void Player::KeyCtrl()
 		}
 		else
 		{
-			if (_player.stat > PLAYER_SMG_DRAW && _player.stat != PLAYER_IDLE)
+			if (_player.stat > PLAYER_SMG_DRAW 
+				&& _player.stat != PLAYER_IDLE)
 			{
 				_player.stat = PLAYER_IDLE;
 				_player.skinnedMesh->SetAnimationIndex(_player.stat);
 			}
-			else if (_player.stat < PLAYER_JUMP_END&& _player.stat != PLAYER_SMG_IDLE)
+			else if (_player.stat < PLAYER_JUMP_END
+				&& _player.stat != PLAYER_SMG_IDLE
+				&& _player.stat != PLAYER_SMG_BMADE_RELOAD)
 			{
 				_player.stat = PLAYER_SMG_IDLE;
 				_player.skinnedMesh->SetAnimationIndex(_player.stat);
@@ -155,12 +164,15 @@ void Player::KeyCtrl()
 		}
 
 		///////////////////////////////////////////////////////¹«±â»Ì±â
-		if (g_pKeyManager->IsOnceKeyDown('1') && _player.stat > PLAYER_SMG_DRAW)
+		if (g_pKeyManager->IsOnceKeyDown('1') 
+			&& _player.stat > PLAYER_SMG_DRAW)
 		{
 			_player.stat = PLAYER_SMG_DRAW;
 			_player.skinnedMesh->SetAnimationIndex(_player.stat);
 		}
-		if (_player.stat == PLAYER_SMG_DRAW && _player.skinnedMesh->GetAnimEnd(PLAYER_SMG_DRAW))
+
+		if (_player.stat == PLAYER_SMG_DRAW 
+			&& _player.skinnedMesh->GetAnimEnd(PLAYER_SMG_DRAW))
 		{
 			_player.stat = PLAYER_SMG_IDLE;
 			_player.skinnedMesh->SetAnimationIndex(_player.stat);
@@ -198,22 +210,38 @@ void Player::KeyCtrl()
 			{
 				_player.stat = PLAYER_SMG_BMADE_RELOAD;
 				_player.skinnedMesh->SetAnimationIndex(_player.stat);
-				if (_player.skinnedMesh->GetAnimEnd(PLAYER_SMG_BMADE_RELOAD))
-				{
-					_player.bullet += (_player.maxBullet - _player.bullet);
-					_player.stat = PLAYER_SMG_IDLE;
-					_player.skinnedMesh->SetAnimationIndex(_player.stat);
-				}
 			}
 		}
+		if (_player.stat == PLAYER_SMG_BMADE_RELOAD 
+			&& _player.skinnedMesh->GetAnimEnd(PLAYER_SMG_BMADE_RELOAD))
+		{
+			_player.bullet += (_player.maxBullet - _player.bullet);
+			_player.stat = PLAYER_SMG_IDLE;
+			_player.skinnedMesh->SetAnimationIndex(_player.stat);
+		}
 }
-
-
 
 void Player::MainProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	WParam = wParam;
 	LParam = lParam;
+}
+
+void Player::AimCtrl()
+{
+	RECT rc;
+	GetClientRect(g_hWnd, &rc);
+	D3DXIMAGE_INFO info;
+	AimRoot = new UIObject;
+	AimIma = new UIImageView;
+	D3DXCreateSprite(D3DDEVICE, &aimSprite);
+	LPDIRECT3DTEXTURE9 texture = g_pTextureManager->GetTexture("sjXFile/cross 03.png", &info);
+	AimIma->SetTexture(texture);
+	AimIma->SetSize(D3DXVECTOR2(info.Width, info.Height));
+	float x = ((rc.right - rc.left) / 2) - (info.Width / 2);
+	float y = ((rc.bottom - rc.top) / 2) - (info.Height / 2);
+	AimIma->SetLocalPos(D3DXVECTOR3(x, y, 0));
+	AimRoot = AimIma;
 }
 
 D3DXVECTOR3 Player::GetPosition()

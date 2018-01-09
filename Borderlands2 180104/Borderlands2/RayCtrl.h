@@ -22,9 +22,4 @@ private:
 	};
 
 	RaySpaceType raySpaceType;
-
-
-
-
 };
-

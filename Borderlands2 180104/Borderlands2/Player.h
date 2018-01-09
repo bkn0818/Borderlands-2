@@ -1,8 +1,11 @@
 #pragma once
+
 class iMap;
 class SkinnedMesh;
 class CharacterCtrl;
 class UIManager;
+class UIObject;
+class UIImageView;
 
 enum PlayerStat
 {
@@ -71,6 +74,10 @@ private:
 	WPARAM			WParam; 
 	LPARAM			LParam;
 
+	LPD3DXSPRITE	aimSprite;
+	UIObject*		AimRoot;
+	UIImageView*	AimIma;
+
 	int				n = 8;
 
 public:
@@ -83,6 +90,7 @@ public:
 	void WeaponCtrl();
 	void KeyCtrl();
 	void MainProc(HWND, UINT, WPARAM, LPARAM);
+	void AimCtrl();
 
 	// 지영 추가============ 
 	D3DXVECTOR3 GetPosition();

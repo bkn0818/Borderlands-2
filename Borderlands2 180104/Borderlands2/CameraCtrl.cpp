@@ -252,12 +252,12 @@ void CameraCtrl::TestPt(bool fire)
 		
 		if (isLeft)
 		{
-			rea = 20;
+			rea = rand() % 20;
 			isLeft = false;
 		}
 		else
 		{
-			rea = -20;
+			rea = -(rand() % 20);
 			isLeft = true;
 		}
 
