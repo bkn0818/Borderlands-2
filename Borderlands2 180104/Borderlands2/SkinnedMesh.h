@@ -50,11 +50,11 @@ public:
 	// 지영 추가: skinnedMesh회전용========== 
 	inline void RotateY(float angle)
 	{
-		angleY = angle;
+		angleY = float(angle * (PI/180));
 	}
 	inline void RotateX(float angle)
 	{
-		angleX = angle;
+		angleX = float(angle * (PI / 180));
 	}
 	// ======================================
 

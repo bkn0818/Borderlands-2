@@ -32,26 +32,6 @@ void Enemy::SetBoundingSphere(tagBoundingSphere& sphere, float radius, int r, in
 	sphere.material.Ambient = sphere.material.Diffuse = sphere.material.Specular = color;
 
 	sphere.show = false;
-	/*
-	LPD3DXMESH tempSp = NULL;
-	D3DXCreateSphere(D3DDEVICE, radius, 10, 10, &tempSp, NULL);
-	tempSp->CloneMeshFVF(0, VertexPC::FVF, D3DDEVICE, &sphere.sphereMesh);
-
-	LPDIRECT3DVERTEXBUFFER9 tempVBuffer;
-	if (SUCCEEDED(sphere.sphereMesh->GetVertexBuffer(&tempVBuffer)))
-	{
-	int numVerts = sphere.sphereMesh->GetNumVertices();
-	VertexPC* vertex = NULL;
-
-	tempVBuffer->Lock(0, 0, (void**)&vertex, 0);
-	{
-	for (int i = 0; i < numVerts; ++i)
-	vertex[i].c = D3DCOLOR_COLORVALUE(float(r / 255), float(g / 255), float(b / 255), 1.0f);
-	}
-	tempVBuffer->Unlock();
-	tempVBuffer->Release();
-	}
-	*/
 }
 
 
@@ -77,11 +57,11 @@ bool Enemy::IsCollideSphere(D3DXVECTOR3* spCenter1, float spRadius1, D3DXVECTOR3
 //-----------------------------------------------------------------------------
 // Enemy::IsRecogPlayer(D3DXVECTOR3 position, SphereInfo* playerSphere)
 // 설명: 플레이어 sphere와 충돌 여부를 검사하고
-//		 충돌 시 인식 상태로 돌입한다.
+//		 충돌 시 인식 상태로 전환한다.
 //-----------------------------------------------------------------------------
 void Enemy::IsRecogPlayer(D3DXVECTOR3 posPlayer, SphereInfo* spherePlayer)
 {
-	if (IsCollideSphere(&pos, stBSphere[SPHERE_RECOG].sphereInfo.fRadius, &posPlayer, spherePlayer->fRadius))
+	if (IsCollideSphere(&pos, stBSphere[SP_RECOG].sphereInfo.fRadius, &posPlayer, spherePlayer->fRadius))
 		isRecog = true;
 }
 
@@ -106,12 +86,12 @@ void Enemy::GetNewPosition(D3DXVECTOR3* ptarget)
 void Enemy::SetNewTarget(D3DXVECTOR3* pEach, float radiusEach)
 {
 	// 목표지점를 찾는다.
-	while (isColliEach)
+	while (isColliOther)
 	{
-		GetNewPosition(&posNext);
+		GetNewPosition(&posTarget);
 
-		if (!IsCollideSphere(pEach, radiusEach, &pos, stBSphere[SPHERE_ASSAULT].sphereInfo.fRadius))
-			isColliEach = false;
+		if (!IsCollideSphere(pEach, radiusEach, &pos, stBSphere[SP_ASSAULT].sphereInfo.fRadius))
+			isColliOther = false;
 	}
 
 	ComputeDirection();
@@ -134,7 +114,7 @@ void Enemy::ComputeDirection()
 	// +          -
 	// z  
 	D3DXVECTOR3 vDiff;
-	D3DXVec3Subtract(&vDiff, &posNext, &pos);
+	D3DXVec3Subtract(&vDiff, &posTarget, &pos);
 	D3DXVec3Normalize(&vDiff, &vDiff);
 
 	// 1. 같은 세로줄 
@@ -152,4 +132,18 @@ void Enemy::ComputeDirection()
 	else if (vDiff.z < 0.f) {
 		direction = acosf(-vDiff.x) + D3DX_PI;
 	}
+}
+
+
+//-----------------------------------------------------------------------------
+// Enemy::Assaulted(int damage)
+// 설명: 받은 데미지만큼 hp를 깎는다. 
+//-----------------------------------------------------------------------------
+void Enemy::Assaulted(int damage)
+{
+	if (hp > 0)
+		hp -= damage;
+
+	if (hp <= 0)
+		hp = 0;
 }

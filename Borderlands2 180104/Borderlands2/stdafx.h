@@ -103,8 +103,3 @@ extern POINT		g_ptMouse;
 
 
 #include "MainGameManager.h"
-
-
-
-
-

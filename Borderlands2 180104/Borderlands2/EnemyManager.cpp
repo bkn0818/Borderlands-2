@@ -25,7 +25,7 @@ HRESULT EnemyManager::Init()
 //	bm[1]->Init(D3DXVECTOR3(40.0f, 0.0f, 60.0f));
 
 	bm = new Bullymong;
-	bm->Init(D3DXVECTOR3(30.0f, 0.0f, 50.0f));
+	bm->Init(D3DXVECTOR3(60.0f, 0.0f, 60.0f));
 
 //	for each(auto p in bm) {
 //		bool isColli = true;

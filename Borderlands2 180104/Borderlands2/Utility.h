@@ -20,6 +20,7 @@ public: \
 #define Xplus 640
 #define Yplus 267
 
+#define PI 3.141592f
 
 #define SAFE_RELEASE(p) if(p) {(p)->Release(); (p) = NULL;}
 #define SAFE_DELETE(p) if(p) {delete (p); (p) = NULL;}
